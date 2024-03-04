@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CloudKitchen")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9704ce35395a56a5edafb631aa7289ba4071ed5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17bb31ccdc9aa4cf81c6f24ab0d614fa8a93623f")]
 [assembly: System.Reflection.AssemblyProductAttribute("CloudKitchen")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CloudKitchen")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
