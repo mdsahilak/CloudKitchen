@@ -8,7 +8,7 @@ namespace CloudKitchen.Models
         
         public int CustomerId  { get; set; }
 
-        public int KitchenId  { get; set; }
+        public int ChefId  { get; set; }
         
         public int DriverId  { get; set; }
 
