@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CloudKitchen.Models
 {
-public class CloudKitchenContext : DbContext
+public class CloudKitchenContext : IdentityDbContext<IdentityUser>
     {
         public CloudKitchenContext(DbContextOptions<CloudKitchenContext> options) : base(options)
         {

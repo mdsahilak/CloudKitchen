@@ -10,6 +10,6 @@ namespace CloudKitchen.Models
 
         public string Phone { get; set; }
 
-        public List<Order>? Orders { get; set; }
+        public ICollection<Order>? Orders { get; set; }
     }
 }
