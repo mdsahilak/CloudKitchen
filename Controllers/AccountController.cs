@@ -47,7 +47,7 @@ namespace CloudKitchen.Controllers
 
                 // Send the verification email
                 var emailSubject = "Email Verification";
-                var emailBody = $"Please verify your email by clicking the following link: {verificationLink}";
+                var emailBody = $"Please verify your email by clicking the following link: {verificationLink} -<<";
                 _emailService.SendEmail(user.Email, emailSubject, emailBody);
                
                 return Ok("User registered successfully. An email verification link has been sent.");
@@ -55,7 +55,6 @@ namespace CloudKitchen.Controllers
 
             return BadRequest(result.Errors);
         }
-
 
         // Add an action to handle email verification
         [HttpGet("verify-email")]
@@ -77,8 +76,6 @@ namespace CloudKitchen.Controllers
 
             return BadRequest("Email verification failed.");
         }
-
-
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(AuthModel model)
@@ -102,6 +99,7 @@ namespace CloudKitchen.Controllers
             await _signInManager.SignOutAsync();
             return Ok("Logged out");
         }
+
         private string GenerateJwtToken(IdentityUser user, IList<string> roles)
         {
             var claims = new List<Claim>

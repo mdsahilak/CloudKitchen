@@ -40,7 +40,7 @@ namespace CloudKitchen.Controllers
             {
                 return NotFound("Role not found.");
             }
-
+            
             return Ok(role);
         }
 
