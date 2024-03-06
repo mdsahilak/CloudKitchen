@@ -23,6 +23,7 @@ namespace CloudKitchen.Controllers
         }
 
         // GET: api/FoodItems
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FoodItem>>> GetFoodItems()
         {
