@@ -29,8 +29,6 @@ else
 builder.Services.AddDbContext<CloudKitchenContext>(options =>
     options.UseSqlServer(connection));
 
-// builder.Services.AddDbContext<CloudKitchenContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Connection")));
-
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 .AddEntityFrameworkStores<CloudKitchenContext>()
 .AddDefaultTokenProviders();
