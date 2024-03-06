@@ -11,11 +11,5 @@ namespace CloudKitchen.Models
         public string Email { get; set; }
 
         public string Address { get; set; }
-
-        [JsonIgnore]
-        public ICollection<Driver>? Drivers { get; set; }
-        
-        [JsonIgnore]
-        public ICollection<Order>? Orders { get; set; }
     }
 }

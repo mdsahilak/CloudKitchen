@@ -18,7 +18,7 @@ namespace CloudKitchen.Models
         
         [JsonIgnore]
         public Kitchen? Kitchen { get; set; }
-        
+
         [JsonIgnore]
         public Driver? Driver { get; set; }
     }

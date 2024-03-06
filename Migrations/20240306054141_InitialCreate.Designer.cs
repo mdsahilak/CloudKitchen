@@ -4,6 +4,7 @@ using CloudKitchen.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudKitchen.Migrations
 {
     [DbContext(typeof(CloudKitchenContext))]
-    partial class CloudKitchenContextModelSnapshot : ModelSnapshot
+    [Migration("20240306054141_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,9 +82,6 @@ namespace CloudKitchen.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FoodReviewId"));
 
-                    b.Property<int>("FoodItemId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -90,8 +90,6 @@ namespace CloudKitchen.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("FoodReviewId");
-
-                    b.HasIndex("FoodItemId");
 
                     b.ToTable("FoodReviews");
                 });
@@ -137,20 +135,10 @@ namespace CloudKitchen.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DriverId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KitchenId")
-                        .HasColumnType("int");
-
                     b.Property<string>("OrderedFoodIds")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("DriverId");
-
-                    b.HasIndex("KitchenId");
 
                     b.ToTable("Orders");
                 });
@@ -353,36 +341,6 @@ namespace CloudKitchen.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CloudKitchen.Models.FoodReview", b =>
-                {
-                    b.HasOne("CloudKitchen.Models.FoodItem", "FoodItem")
-                        .WithMany("Reviews")
-                        .HasForeignKey("FoodItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FoodItem");
-                });
-
-            modelBuilder.Entity("CloudKitchen.Models.Order", b =>
-                {
-                    b.HasOne("CloudKitchen.Models.Driver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CloudKitchen.Models.Kitchen", "Kitchen")
-                        .WithMany()
-                        .HasForeignKey("KitchenId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Driver");
-
-                    b.Navigation("Kitchen");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -432,11 +390,6 @@ namespace CloudKitchen.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CloudKitchen.Models.FoodItem", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using CloudKitchen.Models;
 
 namespace CloudKitchen.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FoodReviewsController : ControllerBase
     {
         private readonly CloudKitchenContext _context;
