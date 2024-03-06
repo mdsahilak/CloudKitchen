@@ -11,64 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudKitchen.Migrations
 {
     [DbContext(typeof(CloudKitchenContext))]
-    [Migration("20240305203255_IdentityAdded")]
-    partial class IdentityAdded
+    [Migration("20240306013355_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
-
-            modelBuilder.Entity("CloudKitchen.Models.Chef", b =>
-                {
-                    b.Property<int>("ChefId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ChefId");
-
-                    b.ToTable("Chefs");
-                });
-
-            modelBuilder.Entity("CloudKitchen.Models.Customer", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CustomerId");
-
-                    b.ToTable("Customers");
-                });
 
             modelBuilder.Entity("CloudKitchen.Models.Driver", b =>
                 {
@@ -80,6 +30,9 @@ namespace CloudKitchen.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("KitchenId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -89,6 +42,8 @@ namespace CloudKitchen.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("DriverId");
+
+                    b.HasIndex("KitchenId");
 
                     b.ToTable("Drivers");
                 });
@@ -103,9 +58,6 @@ namespace CloudKitchen.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
@@ -115,9 +67,53 @@ namespace CloudKitchen.Migrations
 
                     b.HasKey("FoodItemId");
 
-                    b.HasIndex("OrderId");
-
                     b.ToTable("FoodItems");
+                });
+
+            modelBuilder.Entity("CloudKitchen.Models.FoodReview", b =>
+                {
+                    b.Property<int>("FoodReviewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FoodItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Remarks")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("FoodReviewId");
+
+                    b.HasIndex("FoodItemId");
+
+                    b.ToTable("FoodReviews");
+                });
+
+            modelBuilder.Entity("CloudKitchen.Models.Kitchen", b =>
+                {
+                    b.Property<int>("KitchenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("KitchenId");
+
+                    b.ToTable("Kitchens");
                 });
 
             modelBuilder.Entity("CloudKitchen.Models.Order", b =>
@@ -126,25 +122,28 @@ namespace CloudKitchen.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ChefId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DeliveryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DriverId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Time")
+                    b.Property<int>("KitchenId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OrderedFoodIds")
                         .HasColumnType("TEXT");
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("ChefId");
-
-                    b.HasIndex("CustomerId");
-
                     b.HasIndex("DriverId");
+
+                    b.HasIndex("KitchenId");
 
                     b.ToTable("Orders");
                 });
@@ -341,38 +340,45 @@ namespace CloudKitchen.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CloudKitchen.Models.FoodItem", b =>
+            modelBuilder.Entity("CloudKitchen.Models.Driver", b =>
                 {
-                    b.HasOne("CloudKitchen.Models.Order", null)
-                        .WithMany("OrderedItems")
-                        .HasForeignKey("OrderId");
+                    b.HasOne("CloudKitchen.Models.Kitchen", "Kitchen")
+                        .WithMany("Drivers")
+                        .HasForeignKey("KitchenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kitchen");
+                });
+
+            modelBuilder.Entity("CloudKitchen.Models.FoodReview", b =>
+                {
+                    b.HasOne("CloudKitchen.Models.FoodItem", "FoodItem")
+                        .WithMany("Reviews")
+                        .HasForeignKey("FoodItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FoodItem");
                 });
 
             modelBuilder.Entity("CloudKitchen.Models.Order", b =>
                 {
-                    b.HasOne("CloudKitchen.Models.Chef", "Chef")
-                        .WithMany("Orders")
-                        .HasForeignKey("ChefId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CloudKitchen.Models.Customer", "Customer")
-                        .WithMany("Orders")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CloudKitchen.Models.Driver", "Driver")
                         .WithMany("Orders")
                         .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Chef");
-
-                    b.Navigation("Customer");
+                    b.HasOne("CloudKitchen.Models.Kitchen", "Kitchen")
+                        .WithMany("Orders")
+                        .HasForeignKey("KitchenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Driver");
+
+                    b.Navigation("Kitchen");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -426,24 +432,21 @@ namespace CloudKitchen.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CloudKitchen.Models.Chef", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("CloudKitchen.Models.Customer", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("CloudKitchen.Models.Driver", b =>
                 {
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("CloudKitchen.Models.Order", b =>
+            modelBuilder.Entity("CloudKitchen.Models.FoodItem", b =>
                 {
-                    b.Navigation("OrderedItems");
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("CloudKitchen.Models.Kitchen", b =>
+                {
+                    b.Navigation("Drivers");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

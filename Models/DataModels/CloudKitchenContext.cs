@@ -9,15 +9,15 @@ public class CloudKitchenContext : IdentityDbContext<IdentityUser>
         public CloudKitchenContext(DbContextOptions<CloudKitchenContext> options) : base(options)
         {
         }
-
-        public DbSet<Customer> Customers { get; set; }
-
+        
         public DbSet<FoodItem> FoodItems { get; set; }
 
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<FoodReview> FoodReviews { get; set; }
 
-        public DbSet<Chef> Chefs { get; set; }
+        public DbSet<Kitchen> Kitchens { get; set; }
 
         public DbSet<Driver> Drivers { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
 	}
 }

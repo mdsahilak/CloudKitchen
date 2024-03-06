@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace CloudKitchen.Models
 {
     public class FoodItem
@@ -9,5 +11,8 @@ namespace CloudKitchen.Models
         public string Description { get; set; }
 
         public double Price { get; set; }
+
+        [JsonIgnore]
+        public ICollection<FoodReview>? Reviews { get; set; }
     }
 }

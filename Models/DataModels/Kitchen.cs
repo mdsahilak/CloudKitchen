@@ -1,10 +1,10 @@
+using System.Text.Json.Serialization;
+
 namespace CloudKitchen.Models
 {
-    public class Customer
+    public class Kitchen
     {
-        public int CustomerId { get; set; }
-        
-        public string Name { get; set; }
+        public int KitchenId { get; set; }
 
         public string Phone { get; set; }
 
@@ -12,6 +12,10 @@ namespace CloudKitchen.Models
 
         public string Address { get; set; }
 
+        [JsonIgnore]
+        public ICollection<Driver>? Drivers { get; set; }
+        
+        [JsonIgnore]
         public ICollection<Order>? Orders { get; set; }
     }
 }

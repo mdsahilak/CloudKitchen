@@ -11,47 +11,47 @@ namespace CloudKitchen.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ChefsController : ControllerBase
+    public class FoodItemsController : ControllerBase
     {
         private readonly CloudKitchenContext _context;
 
-        public ChefsController(CloudKitchenContext context)
+        public FoodItemsController(CloudKitchenContext context)
         {
             _context = context;
         }
 
-        // GET: api/Chefs
+        // GET: api/FoodItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Chef>>> GetChefs()
+        public async Task<ActionResult<IEnumerable<FoodItem>>> GetFoodItems()
         {
-            return await _context.Chefs.ToListAsync();
+            return await _context.FoodItems.ToListAsync();
         }
 
-        // GET: api/Chefs/5
+        // GET: api/FoodItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Chef>> GetChef(int id)
+        public async Task<ActionResult<FoodItem>> GetFoodItem(int id)
         {
-            var chef = await _context.Chefs.FindAsync(id);
+            var foodItem = await _context.FoodItems.FindAsync(id);
 
-            if (chef == null)
+            if (foodItem == null)
             {
                 return NotFound();
             }
 
-            return chef;
+            return foodItem;
         }
 
-        // PUT: api/Chefs/5
+        // PUT: api/FoodItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutChef(int id, Chef chef)
+        public async Task<IActionResult> PutFoodItem(int id, FoodItem foodItem)
         {
-            if (id != chef.ChefId)
+            if (id != foodItem.FoodItemId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(chef).State = EntityState.Modified;
+            _context.Entry(foodItem).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace CloudKitchen.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ChefExists(id))
+                if (!FoodItemExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace CloudKitchen.Controllers
             return NoContent();
         }
 
-        // POST: api/Chefs
+        // POST: api/FoodItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Chef>> PostChef(Chef chef)
+        public async Task<ActionResult<FoodItem>> PostFoodItem(FoodItem foodItem)
         {
-            _context.Chefs.Add(chef);
+            _context.FoodItems.Add(foodItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetChef", new { id = chef.ChefId }, chef);
+            return CreatedAtAction("GetFoodItem", new { id = foodItem.FoodItemId }, foodItem);
         }
 
-        // DELETE: api/Chefs/5
+        // DELETE: api/FoodItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteChef(int id)
+        public async Task<IActionResult> DeleteFoodItem(int id)
         {
-            var chef = await _context.Chefs.FindAsync(id);
-            if (chef == null)
+            var foodItem = await _context.FoodItems.FindAsync(id);
+            if (foodItem == null)
             {
                 return NotFound();
             }
 
-            _context.Chefs.Remove(chef);
+            _context.FoodItems.Remove(foodItem);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ChefExists(int id)
+        private bool FoodItemExists(int id)
         {
-            return _context.Chefs.Any(e => e.ChefId == id);
+            return _context.FoodItems.Any(e => e.FoodItemId == id);
         }
     }
 }

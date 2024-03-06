@@ -6,53 +6,52 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CloudKitchen.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CloudKitchen.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FoodItemsController : ControllerBase
+    public class KitchensController : ControllerBase
     {
         private readonly CloudKitchenContext _context;
 
-        public FoodItemsController(CloudKitchenContext context)
+        public KitchensController(CloudKitchenContext context)
         {
             _context = context;
         }
 
-        // GET: api/FoodItems
+        // GET: api/Kitchens
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FoodItem>>> GetFoodItems()
+        public async Task<ActionResult<IEnumerable<Kitchen>>> GetKitchens()
         {
-            return await _context.FoodItems.ToListAsync();
+            return await _context.Kitchens.ToListAsync();
         }
 
-        // GET: api/FoodItems/5
+        // GET: api/Kitchens/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FoodItem>> GetFoodItem(int id)
+        public async Task<ActionResult<Kitchen>> GetKitchen(int id)
         {
-            var foodItem = await _context.FoodItems.FindAsync(id);
+            var kitchen = await _context.Kitchens.FindAsync(id);
 
-            if (foodItem == null)
+            if (kitchen == null)
             {
                 return NotFound();
             }
 
-            return foodItem;
+            return kitchen;
         }
 
-        // PUT: api/FoodItems/5
+        // PUT: api/Kitchens/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFoodItem(int id, FoodItem foodItem)
+        public async Task<IActionResult> PutKitchen(int id, Kitchen kitchen)
         {
-            if (id != foodItem.FoodItemId)
+            if (id != kitchen.KitchenId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(foodItem).State = EntityState.Modified;
+            _context.Entry(kitchen).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +59,7 @@ namespace CloudKitchen.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FoodItemExists(id))
+                if (!KitchenExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +72,36 @@ namespace CloudKitchen.Controllers
             return NoContent();
         }
 
-        // POST: api/FoodItems
+        // POST: api/Kitchens
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<FoodItem>> PostFoodItem(FoodItem foodItem)
+        public async Task<ActionResult<Kitchen>> PostKitchen(Kitchen kitchen)
         {
-            _context.FoodItems.Add(foodItem);
+            _context.Kitchens.Add(kitchen);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFoodItem", new { id = foodItem.FoodItemId }, foodItem);
+            return CreatedAtAction("GetKitchen", new { id = kitchen.KitchenId }, kitchen);
         }
 
-        // DELETE: api/FoodItems/5
+        // DELETE: api/Kitchens/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFoodItem(int id)
+        public async Task<IActionResult> DeleteKitchen(int id)
         {
-            var foodItem = await _context.FoodItems.FindAsync(id);
-            if (foodItem == null)
+            var kitchen = await _context.Kitchens.FindAsync(id);
+            if (kitchen == null)
             {
                 return NotFound();
             }
 
-            _context.FoodItems.Remove(foodItem);
+            _context.Kitchens.Remove(kitchen);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FoodItemExists(int id)
+        private bool KitchenExists(int id)
         {
-            return _context.FoodItems.Any(e => e.FoodItemId == id);
+            return _context.Kitchens.Any(e => e.KitchenId == id);
         }
     }
 }

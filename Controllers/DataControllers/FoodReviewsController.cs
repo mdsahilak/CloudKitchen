@@ -11,47 +11,47 @@ namespace CloudKitchen.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class FoodReviewsController : ControllerBase
     {
         private readonly CloudKitchenContext _context;
 
-        public CustomersController(CloudKitchenContext context)
+        public FoodReviewsController(CloudKitchenContext context)
         {
             _context = context;
         }
 
-        // GET: api/Customers
+        // GET: api/FoodReviews
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<FoodReview>>> GetFoodReviews()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.FoodReviews.ToListAsync();
         }
 
-        // GET: api/Customers/5
+        // GET: api/FoodReviews/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<FoodReview>> GetFoodReview(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var foodReview = await _context.FoodReviews.FindAsync(id);
 
-            if (customer == null)
+            if (foodReview == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return foodReview;
         }
 
-        // PUT: api/Customers/5
+        // PUT: api/FoodReviews/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutFoodReview(int id, FoodReview foodReview)
         {
-            if (id != customer.CustomerId)
+            if (id != foodReview.FoodReviewId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(foodReview).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +59,7 @@ namespace CloudKitchen.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!FoodReviewExists(id))
                 {
                     return NotFound();
                 }
@@ -72,36 +72,36 @@ namespace CloudKitchen.Controllers
             return NoContent();
         }
 
-        // POST: api/Customers
+        // POST: api/FoodReviews
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<FoodReview>> PostFoodReview(FoodReview foodReview)
         {
-            _context.Customers.Add(customer);
+            _context.FoodReviews.Add(foodReview);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetFoodReview", new { id = foodReview.FoodReviewId }, foodReview);
         }
 
-        // DELETE: api/Customers/5
+        // DELETE: api/FoodReviews/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteFoodReview(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var foodReview = await _context.FoodReviews.FindAsync(id);
+            if (foodReview == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.FoodReviews.Remove(foodReview);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CustomerExists(int id)
+        private bool FoodReviewExists(int id)
         {
-            return _context.Customers.Any(e => e.CustomerId == id);
+            return _context.FoodReviews.Any(e => e.FoodReviewId == id);
         }
     }
 }
