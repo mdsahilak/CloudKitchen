@@ -7,4 +7,5 @@ Database: Azure SQL
 Logging: Azure Monitor (Application Insights Telemetry)
 
 Live Hosted Version: https://w2000528-api.azurewebsites.net/api/foodItems
+
 Public Github Link: https://github.com/mdsahilak/CloudKitchen
