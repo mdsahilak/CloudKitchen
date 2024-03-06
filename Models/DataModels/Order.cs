@@ -10,7 +10,7 @@ namespace CloudKitchen.Models
 
         public string DeliveryAddress { get; set; }
 
-        public List<FoodItem>? OrderedItems { get; set; }
+        public List<int>? OrderedIds { get; set; }
 
         public int KitchenId { get; set; }
         
