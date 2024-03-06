@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using CloudKitchen.Models;
 
 namespace CloudKitchen.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FoodItemsController : ControllerBase
     {
         private readonly CloudKitchenContext _context;
@@ -44,6 +46,7 @@ namespace CloudKitchen.Controllers
         // PUT: api/FoodItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> PutFoodItem(int id, FoodItem foodItem)
         {
             if (id != foodItem.FoodItemId)
@@ -75,6 +78,7 @@ namespace CloudKitchen.Controllers
         // POST: api/FoodItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<ActionResult<FoodItem>> PostFoodItem(FoodItem foodItem)
         {
             _context.FoodItems.Add(foodItem);
@@ -85,6 +89,7 @@ namespace CloudKitchen.Controllers
 
         // DELETE: api/FoodItems/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteFoodItem(int id)
         {
             var foodItem = await _context.FoodItems.FindAsync(id);
