@@ -12,10 +12,10 @@ namespace CloudKitchen.Models
 
         public string Address { get; set; }
 
-        [JsonIgnore]
-        public ICollection<Driver>? Drivers { get; set; }
+        // [JsonIgnore]
+        // public ICollection<Driver>? Drivers { get; set; }
         
-        [JsonIgnore]
-        public ICollection<Order>? Orders { get; set; }
+        // [JsonIgnore]
+        // public ICollection<Order>? Orders { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace CloudKitchen.Models
 
         public double Price { get; set; }
 
-        [JsonIgnore]
-        public ICollection<FoodReview>? Reviews { get; set; }
+        // [JsonIgnore]
+        // public ICollection<FoodReview>? Reviews { get; set; }
     }
 }

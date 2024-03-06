@@ -6,7 +6,7 @@ namespace CloudKitchen.Models
     {
         public int DriverId { get; set; }
 
-        public int KitchenId { get; set; }
+        // public int KitchenId { get; set; }
         
         public string Name { get; set; }
 
@@ -14,10 +14,10 @@ namespace CloudKitchen.Models
         
         public string Email { get; set; }
         
-        [JsonIgnore]
-        public Kitchen? Kitchen { get; set; }
+        // [JsonIgnore]
+        // public Kitchen? Kitchen { get; set; }
 
-        [JsonIgnore]
-        public ICollection<Order>? Orders { get; set; }
+        // [JsonIgnore]
+        // public ICollection<Order>? Orders { get; set; }
     }
 }
