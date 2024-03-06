@@ -1,10 +1,8 @@
 namespace CloudKitchen.Models
 {
-    public class Customer
+    public class Kitchen
     {
-        public int CustomerId { get; set; }
-        
-        public string Name { get; set; }
+        public int KitchenId { get; set; }
 
         public string Phone { get; set; }
 
