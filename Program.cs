@@ -16,14 +16,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
-builder.Logging.AddApplicationInsights(
-        configureTelemetryConfiguration: (config) => 
-            config.ConnectionString = builder.Configuration.GetConnectionString("APPLICATIONINSIGHTS_CONNECTION_STRING"),
-            configureApplicationInsightsLoggerOptions: (options) => { }
-    );
-
-// builder.Logging.AddFilter<ApplicationInsightsLoggerProvider>("your-category", LogLevel.Trace);
-
 var connection = String.Empty;
 if (builder.Environment.IsDevelopment())
 {
@@ -65,9 +57,10 @@ builder.Services.AddAuthentication(options =>
             };
         });
 
+
+builder.Services.AddApplicationInsightsTelemetry();
+
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
