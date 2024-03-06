@@ -6,22 +6,19 @@ namespace CloudKitchen.Models
     {
         public int OrderId { get; set; }
 
-        public DateTime Time { get; set; }
-        
-        public int CustomerId { get; set; }
+        public string DeliveryName { get; set; }
 
-        public int ChefId { get; set; }
-        
-        public int DriverId { get; set; }
+        public string DeliveryAddress { get; set; }
 
         public List<FoodItem>? OrderedItems { get; set; }
 
+        public int KitchenId { get; set; }
+        
+        public int DriverId { get; set; }
+        
         [JsonIgnore]
-        public Customer? Customer { get; set; }
-
-        [JsonIgnore]
-        public Chef? Chef { get; set; }
-
+        public Kitchen? Kitchen { get; set; }
+        
         [JsonIgnore]
         public Driver? Driver { get; set; }
     }

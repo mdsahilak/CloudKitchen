@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace CloudKitchen.Models
 {
     public class Kitchen
@@ -9,6 +11,8 @@ namespace CloudKitchen.Models
         public string Email { get; set; }
 
         public string Address { get; set; }
+
+        public ICollection<Driver>? Drivers { get; set; }
 
         public ICollection<Order>? Orders { get; set; }
     }
