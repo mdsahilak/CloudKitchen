@@ -1,6 +1,6 @@
-# A .NETCore Backend API for a Cloud Kitchen**
-## Muhammed Sahil Arayakandy**
-### w2000528**
+# A .NETCore Backend API for a Cloud Kitchen
+## Muhammed Sahil Arayakandy
+### w2000528
 
 Hosting Service: Microsoft Azure
 Database: Azure SQL
