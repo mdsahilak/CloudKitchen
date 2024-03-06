@@ -12,14 +12,14 @@ namespace CloudKitchen.Models
 
         public List<int>? OrderedFoodIds { get; set; }
 
-        // public int KitchenId { get; set; }
+        public int KitchenId { get; set; }
         
-        // public int DriverId { get; set; }
+        public int DriverId { get; set; }
         
-        // [JsonIgnore]
-        // public Driver? Driver { get; set; }
+        [JsonIgnore]
+        public Kitchen? Kitchen { get; set; }
 
-        // [JsonIgnore]
-        // public Kitchen? Kitchen { get; set; }
+        [JsonIgnore]
+        public Driver? Driver { get; set; }
     }
 }
